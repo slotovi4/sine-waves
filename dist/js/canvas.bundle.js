@@ -2704,7 +2704,7 @@ var animate = function animate() {
     c.lineTo(i, wave.y + Math.sin(i * wave.length + increment) * wave.amplitude * Math.sin(increment));
   }
 
-  c.strokeStyle = 'hsl(' + strokeColor.h * Math.sin(increment) + ', ' + strokeColor.s + '%, ' + strokeColor.l + '%)';
+  c.strokeStyle = 'hsl(' + Math.abs(strokeColor.h * Math.sin(increment)) + ', ' + strokeColor.s + '%, ' + strokeColor.l + '%)';
   c.stroke();
   increment += wave.frequency;
 };
