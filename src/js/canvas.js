@@ -13,11 +13,21 @@ const wave = {
   amplitude: 100
 }
 
-gui.add(wave, 'y');
+gui.add(wave, 'y', 0, canvas.height);
+gui.add(wave, 'length', -0.01, 0.01);
+gui.add(wave, 'amplitude', -300, 300);
 
-c.beginPath();
-c.moveTo(0, canvas.height / 2);
-for (let i = 0; i < canvas.width; i++) {
-  c.lineTo(i, canvas.height / 2 + Math.sin(i * 0.01) * 100);
+const animate = () => {
+  requestAnimationFrame(animate);
+
+  c.beginPath();
+  c.moveTo(0, canvas.height / 2);
+
+  for (let i = 0; i < canvas.width; i++) {
+    c.lineTo(i, wave.y + Math.sin(i * wave.length) * wave.amplitude);
+  }
+
+  c.stroke();
 }
-c.stroke();
+
+animate();
