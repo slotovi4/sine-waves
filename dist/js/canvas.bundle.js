@@ -2701,10 +2701,10 @@ var animate = function animate() {
   c.moveTo(0, canvas.height / 2);
 
   for (var i = 0; i < canvas.width; i++) {
-    c.lineTo(i, wave.y + Math.sin(i * wave.length + increment) * wave.amplitude);
+    c.lineTo(i, wave.y + Math.sin(i * wave.length + increment) * wave.amplitude * Math.sin(increment));
   }
 
-  c.strokeStyle = 'hsl(' + strokeColor.h + ', ' + strokeColor.s + '%, ' + strokeColor.l + '%)';
+  c.strokeStyle = 'hsl(' + strokeColor.h * Math.sin(increment) + ', ' + strokeColor.s + '%, ' + strokeColor.l + '%)';
   c.stroke();
   increment += wave.frequency;
 };
