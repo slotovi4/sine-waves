@@ -2663,6 +2663,13 @@ var strokeColor = {
   l: 50
 };
 
+var backgroundColor = {
+  r: 0,
+  g: 0,
+  b: 0,
+  a: 0.01
+};
+
 var waveFolder = gui.addFolder('wave');
 waveFolder.add(wave, 'y', 0, canvas.height);
 waveFolder.add(wave, 'length', -0.01, 0.01);
@@ -2672,15 +2679,22 @@ waveFolder.open();
 
 var strokeFolder = gui.addFolder('stroke');
 strokeFolder.add(strokeColor, 'h', 0, 255);
-strokeFolder.add(strokeColor, 's', 0, 255);
-strokeFolder.add(strokeColor, 'l', 0, 255);
+strokeFolder.add(strokeColor, 's', 0, 100);
+strokeFolder.add(strokeColor, 'l', 0, 100);
 strokeFolder.open();
+
+var backgroundFolder = gui.addFolder('background');
+backgroundFolder.add(backgroundColor, 'r', 0, 255);
+backgroundFolder.add(backgroundColor, 'g', 0, 255);
+backgroundFolder.add(backgroundColor, 'b', 0, 255);
+backgroundFolder.add(backgroundColor, 'a', 0, 1);
+backgroundFolder.open();
 
 var increment = wave.frequency;
 
 var animate = function animate() {
   requestAnimationFrame(animate);
-  c.fillStyle = 'rgba(0, 0, 0, 0.01)';
+  c.fillStyle = 'rgba(' + backgroundColor.r + ', ' + backgroundColor.g + ', ' + backgroundColor.b + ', ' + backgroundColor.a + ')';
   c.fillRect(0, 0, canvas.width, canvas.height);
 
   c.beginPath();
@@ -2690,7 +2704,7 @@ var animate = function animate() {
     c.lineTo(i, wave.y + Math.sin(i * wave.length + increment) * wave.amplitude);
   }
 
-  c.strokeStyle = 'hsl(200, 50%, 50%)';
+  c.strokeStyle = 'hsl(' + strokeColor.h + ', ' + strokeColor.s + '%, ' + strokeColor.l + '%)';
   c.stroke();
   increment += wave.frequency;
 };
